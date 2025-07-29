@@ -1,0 +1,19 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Run What's In My Fridge App",
+			"type": "shell",
+			"command": "\"/Users/rohansriram/Documents/Whats in My Fridge/.venv/bin/python\"",
+			"args": [
+				"-m",
+				"streamlit",
+				"run",
+				"app.py"
+			],
+			"group": "build",
+			"isBackground": true,
+			"problemMatcher": []
+		}
+	]
+}
