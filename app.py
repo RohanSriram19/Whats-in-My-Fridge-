@@ -12,7 +12,7 @@ import hashlib
 # Page configuration
 st.set_page_config(
     page_title="What's In My Fridge",
-    page_icon="🍳",
+    page_icon="🥘",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -20,158 +20,259 @@ st.set_page_config(
 # Custom CSS for enhanced aesthetics
 st.markdown("""
 <style>
-    /* Import Google Fonts */
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    /* Import professional fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap');
     
-    /* Global styling */
+    /* Global styling - Sleek dark red design */
     .main {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        font-family: 'Poppins', sans-serif;
+        background: #1a0b0b;
+        font-family: 'Inter', sans-serif;
+        color: #f3e8e8;
+        min-height: 100vh;
     }
     
-    /* Header styling */
+    .stApp {
+        background: #1a0b0b;
+    }
+    
+    /* Remove white backgrounds from containers */
+    .stApp > div > div > div > div {
+        background: transparent !important;
+    }
+    
+    .block-container {
+        background: transparent !important;
+        padding-top: 1rem !important;
+        max-width: 1400px !important;
+        padding-left: 2rem !important;
+        padding-right: 2rem !important;
+    }
+    
+    div[data-testid="stVerticalBlock"] {
+        background: transparent !important;
+    }
+    
+    div[data-testid="stHorizontalBlock"] {
+        background: transparent !important;
+    }
+    
+    .element-container {
+        background: transparent !important;
+    }
+    
+    /* Header styling - Sleek dark red */
     .main-header {
-        background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
-        padding: 2rem;
-        border-radius: 15px;
+        background: transparent;
+        padding: 2rem 0 1rem 0;
         margin-bottom: 2rem;
-        text-align: center;
-        box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        text-align: left;
+        border-bottom: 1px solid #4a1a1a;
     }
     
     .main-header h1 {
-        color: white;
-        font-size: 3rem;
+        color: #fdf2f2;
+        font-size: 2.5rem;
         font-weight: 700;
         margin: 0;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        font-family: 'Source Sans Pro', sans-serif;
+        letter-spacing: -0.75px;
     }
     
     .main-header p {
-        color: rgba(255,255,255,0.9);
-        font-size: 1.2rem;
+        color: #d69e9e;
+        font-size: 1.1rem;
         margin: 0.5rem 0 0 0;
-        font-weight: 300;
+        font-weight: 400;
     }
     
-    /* Card styling */
+    /* Recipe cards - Sleek dark red flat */
     .recipe-card {
-        background: white;
-        border-radius: 20px;
-        padding: 1.5rem;
-        margin: 1rem 0;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        border: 1px solid rgba(255,255,255,0.2);
-        backdrop-filter: blur(10px);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        padding: 1.5rem 0;
+        margin: 0;
+        border-bottom: 1px solid #4a1a1a;
+        transition: background-color 0.2s ease;
     }
     
     .recipe-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        background: rgba(74, 26, 26, 0.1);
+        transform: none;
+        box-shadow: none;
+        border-color: #5a2020;
     }
     
-    /* Input styling */
+    .recipe-card:last-child {
+        border-bottom: none;
+    }
+    
+    /* Input styling - Dark red theme */
     .stTextArea textarea {
-        background: rgba(255,255,255,0.9);
-        border: 2px solid #e0e0e0;
-        border-radius: 15px;
-        padding: 1rem;
-        font-size: 16px;
-        font-family: 'Poppins', sans-serif;
-        transition: border-color 0.3s ease;
+        background: #2a1010 !important;
+        border: 1px solid #5a2020 !important;
+        border-radius: 8px !important;
+        padding: 1rem !important;
+        font-size: 14px !important;
+        font-family: 'Inter', sans-serif !important;
+        color: #f3e8e8 !important;
+        transition: border-color 0.2s ease !important;
+        line-height: 1.5 !important;
+        box-shadow: none !important;
     }
     
     .stTextArea textarea:focus {
-        border-color: #4ecdc4;
-        box-shadow: 0 0 20px rgba(78, 205, 196, 0.2);
+        border-color: #dc2626 !important;
+        background: #2a1010 !important;
+        box-shadow: none !important;
+        outline: none !important;
     }
     
-    /* Button styling */
+    .stTextArea textarea::placeholder {
+        color: #a87070 !important;
+    }
+    
+    /* Text input styling */
+    .stTextInput > div > div > input {
+        background: #2a1010 !important;
+        border: 1px solid #5a2020 !important;
+        border-radius: 8px !important;
+        padding: 0.75rem 1rem !important;
+        font-size: 14px !important;
+        font-family: 'Inter', sans-serif !important;
+        color: #f3e8e8 !important;
+        transition: border-color 0.2s ease !important;
+        box-shadow: none !important;
+    }
+    
+    .stTextInput > div > div > input::placeholder {
+        color: #a87070 !important;
+    }
+    
+    .stTextInput > div > div > input:focus {
+        border-color: #dc2626 !important;
+        background: #2a1010 !important;
+        box-shadow: none !important;
+        outline: none !important;
+    }
+    
+    /* Button styling - Sleek red accent */
     .stButton > button {
-        background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-        color: white;
-        border: none;
-        border-radius: 25px;
-        padding: 0.75rem 2rem;
-        font-size: 16px;
-        font-weight: 600;
-        font-family: 'Poppins', sans-serif;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        background: #dc2626 !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 8px !important;
+        padding: 0.75rem 1.5rem !important;
+        font-size: 14px !important;
+        font-weight: 600 !important;
+        font-family: 'Inter', sans-serif !important;
+        transition: background-color 0.2s ease !important;
+        box-shadow: none !important;
+        letter-spacing: 0.025em !important;
     }
     
     .stButton > button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        background: #b91c1c !important;
+        transform: none !important;
+        box-shadow: none !important;
     }
     
-    /* Sidebar styling */
+    /* Headers and text - Dark red theme */
+    h1, h2, h3 {
+        font-family: 'Source Sans Pro', sans-serif !important;
+        color: #fdf2f2 !important;
+        font-weight: 600 !important;
+        letter-spacing: -0.5px !important;
+        margin-bottom: 0.5rem !important;
+    }
+    
+    h1 {
+        font-size: 1.875rem !important;
+    }
+    
+    h2 {
+        font-size: 1.5rem !important;
+        color: #f3e8e8 !important;
+    }
+    
+    h3 {
+        font-size: 1.25rem !important;
+        color: #e8d5d5 !important;
+    }
+    
+    p, div, span, label {
+        color: #d69e9e !important;
+        font-family: 'Inter', sans-serif !important;
+        font-size: 14px !important;
+        line-height: 1.5 !important;
+    }
+    
+    /* Sidebar styling - Dark red theme */
     .css-1d391kg {
-        background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+        background: #2a1010 !important;
+        border-right: 1px solid #4a1a1a !important;
     }
     
     .css-1d391kg .css-1v0mbdj {
-        color: white;
+        color: #f3e8e8 !important;
     }
     
-    /* Metric styling */
-    .metric-container {
-        background: linear-gradient(135deg, #667eea, #764ba2);
-        color: white;
-        padding: 1rem;
-        border-radius: 15px;
-        text-align: center;
-        margin: 0.5rem 0;
-    }
-    
-    /* Info boxes */
-    .info-box {
-        background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
-        padding: 1.5rem;
-        border-radius: 15px;
-        margin: 1rem 0;
-        border-left: 5px solid #4ecdc4;
-    }
-    
-    /* Success messages */
-    .success-message {
-        background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-        padding: 1rem;
-        border-radius: 15px;
-        border-left: 5px solid #4ecdc4;
-        margin: 1rem 0;
-    }
-    
-    /* Recipe grid */
-    .recipe-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
-        margin: 2rem 0;
-    }
-    
-    /* Tags */
+    /* Tags - Dark red theme */
     .ingredient-tag {
-        background: linear-gradient(45deg, #ff9a9e, #fecfef);
-        color: #333;
-        padding: 0.3rem 0.8rem;
-        border-radius: 20px;
-        font-size: 0.8rem;
+        background: #3f1e1e;
+        color: #f9cccc;
+        padding: 0.25rem 0.75rem;
+        border-radius: 6px;
+        font-size: 12px;
         font-weight: 500;
-        margin: 0.2rem;
+        margin: 0.125rem;
         display: inline-block;
+        border: 1px solid #5c2626;
     }
     
     .missing-tag {
-        background: linear-gradient(45deg, #ffecd2, #fcb69f);
-        color: #333;
-        padding: 0.3rem 0.8rem;
-        border-radius: 20px;
-        font-size: 0.8rem;
+        background: #451a03;
+        color: #fed7aa;
+        padding: 0.25rem 0.75rem;
+        border-radius: 6px;
+        font-size: 12px;
         font-weight: 500;
-        margin: 0.2rem;
+        margin: 0.125rem;
         display: inline-block;
+        border: 1px solid #9a3412;
+    }
+    
+    /* Dark red themed components */
+    .stSuccess, .stInfo, .stWarning, .stError {
+        background: #2a1010 !important;
+        border: 1px solid #5a2020 !important;
+        border-radius: 8px !important;
+        color: #f3e8e8 !important;
+        box-shadow: none !important;
+    }
+    
+    /* Select and other inputs - Dark red theme */
+    .stSelectbox > div > div {
+        background: #2a1010 !important;
+        border: 1px solid #5a2020 !important;
+        border-radius: 8px !important;
+        color: #f3e8e8 !important;
+        box-shadow: none !important;
+    }
+    
+    .stNumberInput > div > div > input {
+        background: #2a1010 !important;
+        border: 1px solid #5a2020 !important;
+        border-radius: 8px !important;
+        color: #f3e8e8 !important;
+        box-shadow: none !important;
+    }
+    
+    .stMultiSelect > div > div {
+        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
+        border: 2px solid #e2e8f0 !important;
+        border-radius: 10px !important;
+        box-shadow: 0 1px 3px rgba(30, 41, 59, 0.05) !important;
     }
     
     /* Hide Streamlit branding */
@@ -179,26 +280,85 @@ st.markdown("""
     footer {visibility: hidden;}
     header {visibility: hidden;}
     
-    /* Custom scrollbar */
+    /* Cool scrollbar */
     ::-webkit-scrollbar {
-        width: 8px;
+        width: 6px;
     }
     
     ::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 10px;
+        background: #f1f5f9;
     }
     
     ::-webkit-scrollbar-thumb {
-        background: linear-gradient(135deg, #667eea, #764ba2);
-        border-radius: 10px;
+        background: linear-gradient(135deg, #94a3b8, #64748b);
+        border-radius: 3px;
     }
     
     ::-webkit-scrollbar-thumb:hover {
-        background: linear-gradient(135deg, #764ba2, #667eea);
+        background: linear-gradient(135deg, #64748b, #475569);
+    }
+    
+    /* Spacing adjustments */
+    .stContainer > div {
+        padding-top: 0.5rem !important;
+    }
+    
+    /* Cool links */
+    a {
+        color: #3b82f6 !important;
+        text-decoration: none !important;
+        transition: color 0.2s ease !important;
+    }
+    
+    a:hover {
+        color: #1d4ed8 !important;
+        text-decoration: underline !important;
+    }
+    
+    /* Remove any remaining visual noise */
+    .stAlert {
+        background: #2a1010 !important;
+        border: 1px solid #5a2020 !important;
+        border-radius: 6px !important;
+        box-shadow: none !important;
+        color: #f3e8e8 !important;
+    }
+    
+    /* Minimal metric displays */
+    [data-testid="metric-container"] {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0.5rem 0 !important;
+    }
+    
+    /* Remove expander styling */
+    .streamlit-expanderHeader {
+        background: transparent !important;
+        border: 1px solid #e5e7eb !important;
+        border-radius: 6px !important;
+    }
+    
+    /* Clean columns */
+    .stColumn {
+        background: transparent !important;
+        padding: 0.25rem !important;
+    }
+    
+    /* Remove any card-like styling */
+    .element-container > div {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
     }
 </style>
 """, unsafe_allow_html=True)
+
+def get_session_id():
+    """Generate a unique session ID for the user"""
+    if 'session_id' not in st.session_state:
+        st.session_state.session_id = str(uuid.uuid4())
+    return st.session_state.session_id
 
 # Initialize session state
 if 'user_id' not in st.session_state:
@@ -209,59 +369,58 @@ if 'current_ingredients' not in st.session_state:
     st.session_state.current_ingredients = []
 
 def main():
-    # Modern Header with gradient background
+    # Clean, professional header
     st.markdown("""
     <div class="main-header">
-        <h1>🍳 What's In My Fridge</h1>
-        <p>Transform your ingredients into culinary masterpieces with AI</p>
+        <h1>What's In My Fridge</h1>
+        <p>Find recipes based on your available ingredients</p>
     </div>
     """, unsafe_allow_html=True)
     
-    # Enhanced Sidebar
+    # Clean sidebar navigation
     with st.sidebar:
-        st.markdown("### 🧭 Navigation")
+        st.markdown("### Navigation")
         page = st.selectbox(
             "",
-            ["🏠 Find Recipes", "📖 Recipe History", "⭐ Favorites", "⚙️ Settings"],
+            ["Find Recipes", "Recipe History", "Favorites", "Settings"],
             label_visibility="collapsed"
         )
         
         st.markdown("---")
         
-        # Quick stats in sidebar
-        st.markdown("### 📊 Quick Stats")
+        # Clean stats without emojis
+        st.markdown("### Statistics")
         col1, col2 = st.columns(2)
         with col1:
-            st.metric("🔍", "Searches", len(st.session_state.get('search_history', [])))
+            st.metric("Searches", len(st.session_state.get('search_history', [])))
         with col2:
-            st.metric("❤️", "Favorites", len(st.session_state.get('favorites', [])))
+            st.metric("Favorites", len(st.session_state.get('favorites', [])))
     
-    if page == "🏠 Find Recipes":
+    if page == "Find Recipes":
         show_recipe_finder()
-    elif page == "📖 Recipe History":
+    elif page == "Recipe History":
         show_history()
-    elif page == "⭐ Favorites":
+    elif page == "Favorites":
         show_favorites()
-    elif page == "⚙️ Settings":
+    elif page == "Settings":
         show_settings()
 
 def show_recipe_finder():
-    # Modern section header
+    # Clean section header
     st.markdown("""
-    <div style="background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%); 
-                padding: 1.5rem; border-radius: 15px; margin: 2rem 0;">
-        <h2 style="color: white; margin: 0; font-weight: 600;">🔍 Recipe Discovery</h2>
-        <p style="color: rgba(255,255,255,0.9); margin: 0.5rem 0 0 0;">
-            Tell us what ingredients you have, and we'll find amazing recipes for you!
+    <div style="padding: 1.5rem 0; border-bottom: 1px solid #e5e7eb; margin-bottom: 2rem;">
+        <h2 style="color: #1a202c; margin: 0; font-weight: 600;">Recipe Discovery</h2>
+        <p style="color: #6b7280; margin: 0.5rem 0 0 0;">
+            Enter your available ingredients to find matching recipes
         </p>
     </div>
     """, unsafe_allow_html=True)
     
-    # Enhanced instructions with better styling
-    with st.expander("💡 How to get the best results", expanded=False):
+    # Clean instructions
+    with st.expander("How to get the best results", expanded=False):
         st.markdown("""
-        <div class="info-box">
-            <h4>🎯 Tips for Perfect Results</h4>
+        <div style="padding: 1rem;">
+            <h4>Tips for Best Results</h4>
             <ul>
                 <li><strong>Be natural:</strong> "leftover chicken, half bell pepper, some cheese"</li>
                 <li><strong>Include variety:</strong> Mix proteins, vegetables, and pantry items</li>
@@ -280,99 +439,106 @@ def show_recipe_finder():
         """, unsafe_allow_html=True)
     
     # Ingredient input with enhanced styling
-    st.markdown("### 🥘 What's in your kitchen?")
+    st.markdown("### What's in your kitchen?")
     
     ingredient_input = st.text_area(
         "",
         placeholder="e.g., eggs, leftover chicken, half a bell pepper, shredded mozzarella cheese, spinach...",
         height=120,
-        help="💡 Type ingredients separated by commas. Be as natural as you like!",
+        help="Type ingredients separated by commas. Be as natural as you like!",
         label_visibility="collapsed"
     )
     
-    # Enhanced search options in columns
-    st.markdown("### ⚙️ Customize Your Search")
-    col1, col2, col3 = st.columns(3)
+    # Search options
+    st.markdown("### Customize Your Search")
+    col1, col2, col3, col4 = st.columns(4)
     
     with col1:
-        max_recipes = st.slider("🔢 Number of recipes:", 5, 20, 10)
+        max_recipes = st.slider("Number of recipes:", 5, 20, 10)
     
     with col2:
-        cuisine_filter = st.selectbox(
-            "🌍 Cuisine:",
-            ["Any", "Italian", "Mexican", "Asian", "American", "Mediterranean", "Indian"]
+        meal_type = st.selectbox(
+            "Meal type:",
+            ["Any", "Breakfast", "Lunch", "Dinner", "Dessert"]
         )
     
     with col3:
+        cuisine_filter = st.selectbox(
+            "Cuisine:",
+            ["Any", "Italian", "Mexican", "Asian", "American", "Mediterranean", "Indian"]
+        )
+    
+    with col4:
         diet_filter = st.selectbox(
-            "🥗 Diet:",
+            "Diet:",
             ["Any", "Vegetarian", "Vegan", "Gluten-Free", "Keto"]
         )
     
-    # Enhanced search button
+    # Clean search button
     st.markdown("<br>", unsafe_allow_html=True)
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
         search_clicked = st.button(
-            "🔍 Discover Amazing Recipes", 
+            "Find Recipes", 
             type="primary", 
             use_container_width=True
         )
     
     if search_clicked:
         if ingredient_input.strip():
-            search_recipes(ingredient_input, max_recipes, cuisine_filter, diet_filter)
+            search_recipes(ingredient_input, max_recipes, meal_type, cuisine_filter, diet_filter)
         else:
-            st.error("🥺 Please tell us what ingredients you have first!")
+            st.error("Please enter your available ingredients first.")
     
     # Display current recipes if any
     if st.session_state.current_recipes:
         display_recipes(st.session_state.current_recipes)
 
-def search_recipes(ingredient_input: str, max_recipes: int, cuisine_filter: str, diet_filter: str = "Any"):
+def search_recipes(ingredient_input: str, max_recipes: int, meal_type: str, cuisine_filter: str, diet_filter: str = "Any"):
     """Search for recipes based on user input"""
     
-    with st.spinner("🧠 Understanding your ingredients..."):
+    with st.spinner("Understanding your ingredients..."):
         # Normalize ingredients using NLP
         try:
             normalized_ingredients = normalize_ingredients(ingredient_input)
             st.session_state.current_ingredients = normalized_ingredients
             
-            # Show processed ingredients with enhanced styling
+            # Show processed ingredients with clean styling
             if normalized_ingredients:
                 ingredient_tags = ""
                 for ing in normalized_ingredients:
-                    ingredient_tags += f'<span class="ingredient-tag">🥘 {ing}</span>'
+                    ingredient_tags += f'<span class="ingredient-tag">{ing}</span>'
                 
                 st.markdown(f"""
-                <div class="success-message">
-                    <h4>✨ We found these ingredients:</h4>
+                <div style="padding: 1rem; background: #f0fff4; border: 1px solid #c6f6d5; border-radius: 6px; margin: 1rem 0;">
+                    <h4>Found these ingredients:</h4>
                     {ingredient_tags}
                 </div>
                 """, unsafe_allow_html=True)
             
         except Exception as e:
-            st.error(f"😅 Oops! Error processing ingredients: {str(e)}")
+            st.error(f"Error processing ingredients: {str(e)}")
             return
     
-    with st.spinner("🍳 Finding amazing recipes just for you..."):
+    with st.spinner("Finding recipes for you..."):
         try:
-            # Create cache key
+            # Create cache key including meal type
             cache_key = hashlib.md5(
-                f"{','.join(sorted(normalized_ingredients))}_{max_recipes}_{cuisine_filter}_{diet_filter}".encode()
+                f"{','.join(sorted(normalized_ingredients))}_{max_recipes}_{meal_type}_{cuisine_filter}_{diet_filter}".encode()
             ).hexdigest()
             
             # Try to get from cache first
             cached_recipes = get_cached_recipes(cache_key)
             
             if cached_recipes:
-                st.success("⚡ Found cached results - lightning fast!")
+                st.success("Found cached results")
                 recipes = cached_recipes
             else:
-                # Fetch from API
+                # Fetch from API with meal type
                 recipes = fetch_recipes(
                     ingredients=normalized_ingredients,
                     max_results=max_recipes,
+                    meal_type=meal_type if meal_type != "Any" else None,
                     cuisine=cuisine_filter if cuisine_filter != "Any" else None
                 )
                 
@@ -384,31 +550,30 @@ def search_recipes(ingredient_input: str, max_recipes: int, cuisine_filter: str,
                 ranked_recipes = rank_recipes(recipes, st.session_state.user_id)
                 st.session_state.current_recipes = ranked_recipes
                 
-                # Enhanced success message
+                # Success message
                 st.markdown(f"""
-                <div class="success-message">
-                    <h3>🎉 Found {len(ranked_recipes)} delicious recipes!</h3>
+                <div style="padding: 1rem; background: #f0fff4; border: 1px solid #c6f6d5; border-radius: 6px; margin: 1rem 0;">
+                    <h3>Found {len(ranked_recipes)} recipes</h3>
                     <p>Ranked by how well they match your ingredients and preferences</p>
                 </div>
                 """, unsafe_allow_html=True)
             else:
-                st.warning("😔 No recipes found with those ingredients. Try different ingredients or check your API configuration.")
+                st.warning("No recipes found with those ingredients. Try different ingredients or check your API configuration.")
                 
         except Exception as e:
-            st.error(f"😰 Error fetching recipes: {str(e)}")
+            st.error(f"Error fetching recipes: {str(e)}")
 
 def display_recipes(recipes: List[Dict]):
-    """Display recipe results in a beautiful grid"""
+    """Display recipe results in a clean list"""
     
     st.markdown(f"""
-    <div style="background: linear-gradient(90deg, #ff9a9e 0%, #fecfef 100%); 
-                padding: 1.5rem; border-radius: 15px; margin: 2rem 0;">
-        <h2 style="color: white; margin: 0; font-weight: 600;">
-            🍽️ Recipe Suggestions ({len(recipes)} found)
+    <div style="padding: 1.5rem 0; border-bottom: 1px solid #e5e7eb; margin-bottom: 1rem;">
+        <h2 style="color: #1a202c; margin: 0; font-weight: 600;">
+            Recipe Suggestions ({len(recipes)} found)
         </h2>
         <p style="color: rgba(255,255,255,0.9); margin: 0.5rem 0 0 0;">
             Scroll through these delicious options crafted just for you! 
-            <strong>Click the "📖 View Full Recipe" buttons to get complete instructions.</strong>
+            <strong>Click recipe titles to view full instructions.</strong>
         </p>
     </div>
     """, unsafe_allow_html=True)
@@ -452,7 +617,7 @@ def display_recipe_card(recipe: Dict, idx: int):
         if recipe.get('readyInMinutes'):
             st.markdown(f"""
             <div class="metric-container">
-                <div style="font-size: 1.5rem;">⏱️</div>
+                <div style="font-size: 14px; color: #6b7280;">Time</div>
                 <div style="font-size: 1.2rem; font-weight: 600;">{recipe['readyInMinutes']}</div>
                 <div style="font-size: 0.8rem;">minutes</div>
             </div>
@@ -469,14 +634,25 @@ def display_recipe_card(recipe: Dict, idx: int):
             """, unsafe_allow_html=True)
     
     with col3:
-        health_score = recipe.get('healthScore', 50)
-        st.markdown(f"""
-        <div class="metric-container">
-            <div style="font-size: 1.5rem;">💚</div>
-            <div style="font-size: 1.2rem; font-weight: 600;">{health_score}</div>
-            <div style="font-size: 0.8rem;">health</div>
-        </div>
-        """, unsafe_allow_html=True)
+        health_score = recipe.get('healthScore')
+        if health_score and health_score > 0:
+            st.markdown(f"""
+            <div class="metric-container">
+                <div style="font-size: 1.5rem;">💚</div>
+                <div style="font-size: 1.2rem; font-weight: 600;">{health_score}</div>
+                <div style="font-size: 0.8rem;">health</div>
+            </div>
+            """, unsafe_allow_html=True)
+        else:
+            # Show recipe difficulty instead if no health score
+            difficulty = "Easy" if recipe.get('readyInMinutes', 60) <= 30 else "Medium"
+            st.markdown(f"""
+            <div class="metric-container">
+                <div style="font-size: 14px; color: #6b7280;">Health</div>
+                <div style="font-size: 1.2rem; font-weight: 600;">{difficulty}</div>
+                <div style="font-size: 0.8rem;">difficulty</div>
+            </div>
+            """, unsafe_allow_html=True)
     
     # Ingredients with beautiful tags
     if recipe.get('usedIngredients'):
@@ -487,7 +663,7 @@ def display_recipe_card(recipe: Dict, idx: int):
         
         st.markdown(f"""
         <div style="margin: 1rem 0;">
-            <strong>🎯 Using your ingredients:</strong><br>
+            <strong>Using your ingredients:</strong><br>
             {used_tags}
         </div>
         """, unsafe_allow_html=True)
@@ -498,7 +674,7 @@ def display_recipe_card(recipe: Dict, idx: int):
         if missed:
             missed_tags = ""
             for ing in missed[:3]:  # Show max 3 missing ingredients
-                missed_tags += f'<span class="missing-tag">🛒 {ing}</span>'
+                missed_tags += f'<span class="missing-tag">{ing}</span>'
             
             st.markdown(f"""
             <div style="margin: 1rem 0;">
@@ -558,7 +734,7 @@ def display_recipe_card(recipe: Dict, idx: int):
                 transition: all 0.3s ease;
                 text-transform: uppercase;
                 letter-spacing: 1px;">
-                📖 View Full Recipe & Instructions
+                View Full Recipe
             </a>
         </div>
         """, unsafe_allow_html=True)
@@ -570,7 +746,7 @@ def show_history():
     st.markdown("""
     <div style="background: linear-gradient(90deg, #a8edea 0%, #fed6e3 100%); 
                 padding: 1.5rem; border-radius: 15px; margin: 2rem 0;">
-        <h2 style="color: #333; margin: 0; font-weight: 600;">📖 Your Recipe Journey</h2>
+        <h2 style="color: #333; margin: 0; font-weight: 600;">Your Recipe History</h2>
         <p style="color: #555; margin: 0.5rem 0 0 0;">
             Track your culinary adventures and discoveries
         </p>
@@ -668,7 +844,7 @@ def display_favorite_card(recipe: Dict, idx: int):
     col1, col2 = st.columns(2)
     with col1:
         if recipe.get('readyInMinutes'):
-            st.markdown(f"⏱️ **{recipe['readyInMinutes']} min**")
+            st.markdown(f"**{recipe['readyInMinutes']} min**")
     with col2:
         if recipe.get('servings'):
             st.markdown(f"👥 **{recipe['servings']} servings**")
@@ -723,7 +899,7 @@ def show_settings():
     
     with col2:
         difficulty = st.selectbox(
-            "📊 Difficulty level:", 
+            "Difficulty level:", 
             ["Any", "Easy", "Medium", "Hard"]
         )
     
