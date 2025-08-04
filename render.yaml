@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: whats-in-my-fridge
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "./start.sh"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: SPOONACULAR_API_KEY
+        value: c5e34fe276d846a0a29fa1fdf81c5429
+      - key: CACHE_DURATION_HOURS
+        value: "24"
+      - key: MAX_CACHE_ENTRIES
+        value: "1000"
+      - key: DATABASE_PATH
+        value: "data/app_database.json"
+      - key: MIN_FEEDBACK_FOR_ML
+        value: "10"
+      - key: DEBUG
+        value: "False"
+      - key: LOG_LEVEL
+        value: "INFO"
