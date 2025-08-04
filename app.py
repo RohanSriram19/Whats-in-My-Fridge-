@@ -1,7 +1,7 @@
 import streamlit as st
 import time
 from typing import List, Dict
-from nlp import normalize_ingredients
+from nlp_simple import normalize_ingredients
 from api import fetch_recipes
 from cache import get_cached_recipes, store_cached_recipes
 from ranker import rank_recipes
