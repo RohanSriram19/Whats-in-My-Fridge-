@@ -2,11 +2,15 @@ services:
   - type: web
     name: whats-in-my-fridge
     env: python
-    buildCommand: "./build.sh"
-    startCommand: "./start.sh"
+    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
+    startCommand: streamlit run app.py --server.port $PORT --server.address 0.0.0.0 --server.headless true
     envVars:
       - key: PYTHON_VERSION
-        value: 3.11.9
+        value: 3.11.0
+      - key: STREAMLIT_SERVER_HEADLESS
+        value: true
+      - key: STREAMLIT_SERVER_ENABLECORS
+        value: false
       - key: SPOONACULAR_API_KEY
         value: c5e34fe276d846a0a29fa1fdf81c5429
       - key: CACHE_DURATION_HOURS
